@@ -1,16 +1,30 @@
 package tests;
 
-import Constans.Credentials;
-import Constans.NameUpdate;
+import com.codeborne.selenide.WebDriverRunner;
+import constants.Credentials;
+import constants.NameUpdate;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.EditProfilePage;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.YourDashboardPage;
 
+import static com.codeborne.selenide.Selenide.open;
+
 public class UpdateNameTest extends BaseTest {
 
+    @BeforeMethod
+    public  void setUp() {
+        open();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        WebDriverRunner.driver().close();
+    }
 
     @Test
     public void updateFirstNameTest() {
@@ -36,7 +50,10 @@ public class UpdateNameTest extends BaseTest {
         EditProfilePage editProfilePage = new EditProfilePage();
         editProfilePage.updateLastInitialName(NameUpdate.LAST_NAME_INITIAL);
         Assert.assertEquals(editProfilePage.getTextUpdateName(), "Andrei S");
+
     }
+
+
 
 
 }
